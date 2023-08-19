@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Temporalio.Extensions.Generators.Activities;
 using Temporalio.Workflows;
 using WorkflowGenerator.Sample.Records;
 
@@ -10,7 +12,9 @@ public class TestWorkflow
     [WorkflowRun]
     public async Task RunAsync()
     {
-        await Workflow.ExecuteActivityAsync((TestActivity a) => a.Execute(""), new ActivityOptions());
+        await Activities.TestActivityExecute(new TestActivityInput(), new ActivityOptions());
+        await Activities.TestActivityExecute2("", "", new ActivityOptions());
+        // await Workflow.ExecuteActivityAsync((TestActivity a) => a.Execute(""), new ActivityOptions());
     }
 }
 
@@ -20,7 +24,7 @@ public class TestWorkflow2
     [WorkflowRun]
     public async Task<string> ExecuteRunAsync(string input1, string input2)
     {
-        await Workflow.ExecuteActivityAsync((TestActivity a) => a.Execute(""), new ActivityOptions());
+        await Workflow.ExecuteActivityAsync((TestActivity a) => a.Execute(new TestActivityInput()), new ActivityOptions());
         return "";
     }
 }
@@ -31,7 +35,7 @@ public class TestWorkflow3
     [WorkflowRun]
     public async Task<string> ExecuteRunAsync(Test test)
     {
-        await Workflow.ExecuteActivityAsync((TestActivity a) => a.Execute(""), new ActivityOptions());
+        await Workflow.ExecuteActivityAsync((TestActivity a) => a.Execute(new TestActivityInput()), new ActivityOptions());
         return "";
     }
 }

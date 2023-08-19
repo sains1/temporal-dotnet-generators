@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowGenerator.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowGenerator", "src\WorkflowGenerator\WorkflowGenerator\WorkflowGenerator.csproj", "{26369BA2-D1C8-46C7-BCBD-39B26A4C4709}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityGenerator", "src\WorkflowGenerator\ActivityGenerator\ActivityGenerator.csproj", "{E284F3C3-CF52-46FA-999B-3088B8CEDA84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +34,15 @@ Global
 		{26369BA2-D1C8-46C7-BCBD-39B26A4C4709}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26369BA2-D1C8-46C7-BCBD-39B26A4C4709}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26369BA2-D1C8-46C7-BCBD-39B26A4C4709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E284F3C3-CF52-46FA-999B-3088B8CEDA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E284F3C3-CF52-46FA-999B-3088B8CEDA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E284F3C3-CF52-46FA-999B-3088B8CEDA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E284F3C3-CF52-46FA-999B-3088B8CEDA84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{37D510C6-E7A4-4E53-B706-4BAEFEE4E5CC} = {47852843-87FC-4093-8E11-5236DAFB0F26}
 		{A8A4920B-55DE-449D-BB6E-DC16DC7954A5} = {47852843-87FC-4093-8E11-5236DAFB0F26}
 		{26369BA2-D1C8-46C7-BCBD-39B26A4C4709} = {47852843-87FC-4093-8E11-5236DAFB0F26}
+		{E284F3C3-CF52-46FA-999B-3088B8CEDA84} = {47852843-87FC-4093-8E11-5236DAFB0F26}
 	EndGlobalSection
 EndGlobal

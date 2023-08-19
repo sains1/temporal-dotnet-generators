@@ -154,7 +154,7 @@ public class WorkflowSourceGenerator : IIncrementalGenerator
         }
         
         // Build up the source code
-        const string extensionsNamespaceName = "Temporalio.Extensions.Generators.Workflow";
+        const string extensionsNamespaceName = "Temporalio.Extensions.Generators.Workflows";
 
         // Add the source code to the compilation.
         context.AddSource($"TemporalClientExtensions.g.cs",

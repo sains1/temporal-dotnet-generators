@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Temporalio.Client;
-using Temporalio.Extensions.Generators.Workflow;
+using Temporalio.Extensions.Generators.Workflows;
 using WorkflowGenerator.Sample.Records;
 
 var client = await TemporalClient.ConnectAsync(new()
