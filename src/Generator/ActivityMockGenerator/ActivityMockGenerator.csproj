@@ -9,8 +9,8 @@
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
 
-        <RootNamespace>ActivityGenerator</RootNamespace>
-        <PackageId>ActivityGenerator1</PackageId>
+        <RootNamespace>ActivityMockGenerator</RootNamespace>
+        <PackageId>ActivityMockGenerator</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,12 +22,10 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0"/>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.7.0"/>
-        <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.6.0"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.6.0"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\..\WorkflowGenerator\Common\Common.csproj" />
-    </ItemGroup>
+
+
 </Project>
