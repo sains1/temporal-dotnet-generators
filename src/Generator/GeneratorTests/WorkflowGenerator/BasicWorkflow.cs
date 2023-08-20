@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Temporalio.Workflows;
 
-namespace WorkflowGenerator.Sample;
+namespace Generator.Tests.WorkflowGenerator;
 
 [Workflow]
 public class TestWorkflow

@@ -10,6 +10,8 @@ public static class TemporalConstants
         public const string WorkflowsNamespace = RootNamespace + ".Workflows";
         public const string WorkflowAttributeName = "WorkflowAttribute";
         public const string WorkflowAttributeFullName = WorkflowsNamespace + "." + WorkflowAttributeName;
+        public const string WorkflowRunAttributeName = "WorkflowRunAttribute";
+        public const string WorkflowRunAttributeFullName = WorkflowsNamespace + "." + WorkflowRunAttributeName;
         public const string ExecuteActivityAsyncMethodName = "ExecuteActivityAsync";
         
     }

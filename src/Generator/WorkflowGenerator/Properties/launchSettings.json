@@ -3,7 +3,7 @@
   "profiles": {
     "DebugRoslynSourceGenerator": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "../WorkflowGenerator.Sample/WorkflowGenerator.Sample.csproj"
+      "targetProject": "../Generator.Sample/Generator.Sample.csproj"
     }
   }
 }
