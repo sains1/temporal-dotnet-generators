@@ -6,10 +6,10 @@
         <RootNamespace>WorkflowGenerator.Sample</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\ActivityGenerator\ActivityGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
-        <ProjectReference Include="..\..\Generator\WorkflowGenerator\WorkflowGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
-    </ItemGroup>
+<!--    <ItemGroup>-->
+<!--        <ProjectReference Include="..\ActivityGenerator1\ActivityGenerator1.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />-->
+<!--        <ProjectReference Include="..\..\Generator\WorkflowGenerator\WorkflowGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>-->
+<!--    </ItemGroup>-->
 
     <ItemGroup>
       <PackageReference Include="Temporalio" Version="0.1.0-beta1" />

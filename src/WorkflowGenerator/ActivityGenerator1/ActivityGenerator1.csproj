@@ -10,7 +10,7 @@
         <IsRoslynComponent>true</IsRoslynComponent>
 
         <RootNamespace>ActivityGenerator</RootNamespace>
-        <PackageId>ActivityGenerator</PackageId>
+        <PackageId>ActivityGenerator1</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
