@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\WorkflowGenerator\WorkflowGenerator.csproj" />
+        <ProjectReference Include="..\..\src\WorkflowGenerator\WorkflowGenerator.csproj" />
     </ItemGroup>
 
 
