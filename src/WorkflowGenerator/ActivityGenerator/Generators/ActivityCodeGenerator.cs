@@ -66,10 +66,8 @@ public class ActivityCodeGenerator: IIncrementalGenerator
                 continue;
             }
 
-            // get containing namespace
-            if (classDeclaration.Ancestors()
-                    .OfType<BaseNamespaceDeclarationSyntax>()
-                    .FirstOrDefault() is not { } namespaceDeclaration)
+            // get containing namespace;
+            if (classDeclaration.GetNamespaceOrNull() is not { } namespaceDeclaration)
             {
                 continue;
             }

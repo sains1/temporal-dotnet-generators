@@ -1,9 +1,13 @@
 ﻿{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "DebugRoslynSourceGenerator": {
+    "DebugActivitySourceGenerator": {
       "commandName": "DebugRoslynComponent",
       "targetProject": "../WorkflowGenerator.Sample/WorkflowGenerator.Sample.csproj"
+    },
+    "DebugNSubstituteSourceGenerator": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "../WorkflowGenerator.TestSample/WorkflowGenerator.TestSample.csproj"
     }
   }
 }

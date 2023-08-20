@@ -26,4 +26,8 @@
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.7.0"/>
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\WorkflowGenerator\Common\Common.csproj" />
+    </ItemGroup>
 </Project>
