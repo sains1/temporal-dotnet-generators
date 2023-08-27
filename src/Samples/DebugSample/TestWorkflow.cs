@@ -1,11 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using Temporalio.Generators.Activities;
+using Temporalio.Generators.Workflows;
 using Temporalio.Workflows;
 
-namespace Sample;
+namespace DebugSample;
 
 [Workflow]
+[GenerateWorkflowExtension]
 public class TestWorkflow
 {
     [WorkflowRun]

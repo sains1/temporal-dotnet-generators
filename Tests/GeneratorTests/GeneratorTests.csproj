@@ -3,9 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
-
         <IsPackable>false</IsPackable>
-
         <RootNamespace>Generator.Tests</RootNamespace>
     </PropertyGroup>
 
@@ -21,10 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\ActivityGenerator\ActivityGenerator.csproj" />
         <ProjectReference Include="..\..\src\WorkflowGenerator\WorkflowGenerator.csproj" />
     </ItemGroup>
-
-
-
-
 </Project>
