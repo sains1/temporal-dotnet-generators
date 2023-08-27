@@ -114,7 +114,7 @@ public class WorkflowCodeGenerator : IIncrementalGenerator
         AddWorkflowMethod("Start", $"Task<{handleType}>");
         
         // Add the ExecuteWorkflowAsync extension method
-        AddWorkflowMethod("Execute", $"Task<{unpackedReturnType}>");
+        AddWorkflowMethod("Execute", unpackedReturnType != null ? $"Task<{unpackedReturnType}>" : "Task");
 
         return;
 
