@@ -24,7 +24,7 @@ Creates test doubles for activity classes. All methods on the target class marke
 
 Usage:
 
-Create a partial class inheriting from `ActivityMockBase` and mark it with the `[GenerateNSubstituteMocks]` attribute. The code generator will populate the partial class with mocked methods for each Activity on the target activity class.
+Create a partial class inheriting from `ActivityMockBase` and mark it with the `[GenerateNSubstituteMocks]` attribute.
 
 ```csharp
 [GenerateNSubstituteMocks]
