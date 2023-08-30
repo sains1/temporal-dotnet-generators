@@ -2,6 +2,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Temporalio.Workflows;
+using WorkflowGenerator;
 using Xunit;
 
 namespace Generator.Tests.WorkflowGenerator;

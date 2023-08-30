@@ -1,0 +1,28 @@
+name: Generate MockActivityGenerator nuget package
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  generate-csharp-client:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          dotnet build ./src/ActivityMockGenerator/ActivityMockGenerator.csproj --configuration Release
+        
+      - name: Publish
+        run: dotnet nuget push ./src/ActivityMockGenerator/bin/Release/*.nupkg  --source "GH" --api-key ${{secrets.GITHUB_TOKEN}}
+      # - name: Package
+      #   run: |
+      #     dotnet pack ./src/ActivityMockGenerator/ActivityMockGenerator.csproj --configuration Release --output ${{github.workspace}}/NuGet /p:Version=$client_version
+      
+      # - name: Publish
+      #   run: dotnet nuget push ${{github.workspace}}/NuGet/*.nupkg  --source "GH" --api-key ${{secrets.GITHUB_TOKEN}}

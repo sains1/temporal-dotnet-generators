@@ -1,17 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <Authors>sains1</Authors>
+        <Title>Temporal .NET ActivityMockGenerator</Title>
+        <Company>sains1</Company>
+        <PackageVersion>1.0.1</PackageVersion>
+        <PackageId>ActivityMockGenerator</PackageId>
+        <Product>sains1</Product>
+        <Description>This source generator produces mock activity classes to help test workflows</Description>
+        <PackageProjectUrl>https://github.com/sains1/temporal-dotnet-generators/</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>temporal, source generator</PackageTags>
+        <Copyright></Copyright>
+        
         <TargetFramework>netstandard2.0</TargetFramework>
-        <IsPackable>false</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
-
         <RootNamespace>ActivityMockGenerator</RootNamespace>
-        <PackageId>ActivityMockGenerator</PackageId>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="AvantiPoint.CodeGenHelpers" Version="1.6.20">

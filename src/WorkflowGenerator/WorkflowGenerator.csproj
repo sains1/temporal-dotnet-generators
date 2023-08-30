@@ -1,17 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <Authors>sains1</Authors>
+        <Title>Temporal .NET WorkflowGenerator</Title>
+        <Company>sains1</Company>
+        <PackageVersion>1.0.0</PackageVersion>
+        <PackageId>WorkflowGenerator</PackageId>
+        <Product>sains1</Product>
+        <Description>This source generator produces some helper code for invoking temporal workflows</Description>
+        <PackageProjectUrl>https://github.com/sains1/temporal-dotnet-generators/</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>temporal, source generator</PackageTags>
+        <Copyright></Copyright>
+        
         <TargetFramework>netstandard2.0</TargetFramework>
-        <IsPackable>false</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
         <IsRoslynComponent>true</IsRoslynComponent>
-
-        <RootNamespace>Generator</RootNamespace>
-        <PackageId>WorkflowGenerator</PackageId>
+        <RootNamespace>WorkflowGenerator</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="AvantiPoint.CodeGenHelpers" Version="1.6.20">

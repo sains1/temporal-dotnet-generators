@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Generator;
+namespace WorkflowGenerator;
 
 [Generator]
 public class WorkflowCodeGenerator : IIncrementalGenerator
@@ -15,13 +15,13 @@ public class WorkflowCodeGenerator : IIncrementalGenerator
     private const string TemporalClientNamespace = "Temporalio.Client";
     private const string TemporalWorkflowsNamespace = "Temporalio.Workflows";
     private const string TemporalWorkflowRunAttributeFullName = "Temporalio.Workflows.WorkflowRunAttribute";
-    
+
     // output options
     private const string OutputNamespace = "Temporalio.Generators.Workflows";
     private const string OutputFileName = "TemporalClientExtensions.g.cs";
     private const string AttributeOutputFileName = "TemporalGenerateClientExtensionsAttribute.g.cs";
     private const string OutputClassName = "TemporalClientExtensions";
-    
+
     // attribute constants
     private const string AttributeName = "GenerateWorkflowExtensionAttribute";
     private const string AttributeSourceCode = $$"""
@@ -35,14 +35,14 @@ public class WorkflowCodeGenerator : IIncrementalGenerator
                                                      }
                                                  }
                                                  """;
-    
+
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // Add the marker attribute to the compilation.
         context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
             AttributeOutputFileName,
             SourceText.From(AttributeSourceCode, Encoding.UTF8)));
-        
+
         var workflowClasses = context.SyntaxProvider.ForAttributeWithMetadataName(
                 $"{OutputNamespace}.{AttributeName}",
                 predicate: static (s, _) => s is ClassDeclarationSyntax { AttributeLists.Count: > 0 },
@@ -89,7 +89,7 @@ public class WorkflowCodeGenerator : IIncrementalGenerator
 
         var runMethod = methods.FirstOrDefault(method => method.GetAttributes().Any(attr =>
             attr.AttributeClass?.ToDisplayString() == TemporalWorkflowRunAttributeFullName));
-        
+
         // add the [WorkflowRun] method extensions. Methods will be named: Start{WorkflowClassName}Async
         //      and Execute{WorkflowClassName}Async
         GenerateRunMethodSource(builder, runMethod, workflowClass);
@@ -112,7 +112,7 @@ public class WorkflowCodeGenerator : IIncrementalGenerator
 
         // Add the StartWorkflowAsync extension method
         AddWorkflowMethod("Start", $"Task<{handleType}>");
-        
+
         // Add the ExecuteWorkflowAsync extension method
         AddWorkflowMethod("Execute", unpackedReturnType != null ? $"Task<{unpackedReturnType}>" : "Task");
 
@@ -133,7 +133,7 @@ public class WorkflowCodeGenerator : IIncrementalGenerator
 
             // add the client to start of extension method
             methodBuilder.AddParameter("this ITemporalClient", "client");
-            
+
             // list the individual workflow parameters
             foreach (var parameter in runMethod.Parameters)
             {
@@ -144,10 +144,10 @@ public class WorkflowCodeGenerator : IIncrementalGenerator
             methodBuilder.AddParameter("WorkflowOptions", "options");
         }
     }
-    
+
     private static string? UnpackGenericOrNull(INamedTypeSymbol? symbol)
     {
-        var generic= symbol?.TypeArguments.FirstOrDefault();
+        var generic = symbol?.TypeArguments.FirstOrDefault();
 
         if (generic is null)
         {
