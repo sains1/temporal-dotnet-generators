@@ -6,9 +6,9 @@ This repository contains a few experimental source generators for the temporal-d
 
 - [Getting Started](#getting-started)
 - [Use Cases](#use-cases)
-  - [1. Workflow extension methods](#1-workflow-extension-methods)
-  - [2. Activity methods](#2-activity-methods)
-  - [3. Activity mocks](#3-activity-mocks)
+  - [1. Activity mocks](#1-activity-mocks)
+  - [2. Workflow extension methods](#2-workflow-extension-methods)
+  - [3. Activity methods](#3-activity-methods)
 - [Debugging the code generators](#debugging-the-code-generators)
 - [What does the generated code look like?](#what-does-the-generated-code-look-like)
 
@@ -18,72 +18,13 @@ This repository contains a few experimental source generators for the temporal-d
 
 ## Use Cases:
 
-### 1. Workflow extension methods
-
-Creates a set of extension methods on the ITemporalClient for all classes marked with a [GenerateWorkflowExtension] attribute.
-
-> TODO clarify whether this avoids issues with expression tree compilation
-
-Usage:
-
-Add a `[GenerateWorkflowExtension]` attribute to the Workflow:
-
-```csharp
-[Workflow]
-[GenerateWorkflowExtension]
-public class MyWorkflow
-{
-    [WorkflowRun]
-    public Task RunAsync(string input)
-    {
-        return Task.CompletedTask;
-    }
-}
-```
-
-Invoke the workflow using the temporal client (either using `Execute{WorkflowName}Async` or `Start{WorkflowName}Async`)
-
-```csharp
-var client = new TemporalClient(...);
-var result = client.ExecuteMyWorkflowAsync("input", options);
-```
-
-### 2. Activity methods
-
-Creates a set of static methods on an Activities class for all classes marked with a `[GenerateActivityExtension]` attribute.
-
-> TODO clarify whether this avoids issues with expression tree compilation
-
-Usage:
-
-Add the `[GenerateActivityExtension]` attribute to an Activity:
-
-```csharp
-[Activity]
-[GenerateActivityExtension]
-public async string MyActivity(string input)
-{
-    return "hello";
-}
-```
-
-Invoke the activity from a Workflow using `Activities.Execute{ActivityName}`
-
-```csharp
-[WorkflowRun]
-public async Task RunAsync()
-{
-    var result = await Activities.ExecuteMyActivity("input", options);
-}
-```
-
-### 3. Activity mocks
+### 1. Activity mocks
 
 Creates test doubles for activity classes. All methods on the target class marked with an [Activity] attribute will be mocked using NSubstitue meaning the mock behaviour can be configured from test execution. This is helpful when testing workflows with lots of activity executions or where we want to verify our activity delegates have been invoked.
 
 Usage:
 
-Create a partial class inheriting from `ActivityMockBase` and mark it with the `[GenerateNSubstituteMocks]` attribute. This will generate a partial class with a mock for each activity method.
+Create a partial class inheriting from `ActivityMockBase` and mark it with the `[GenerateNSubstituteMocks]` attribute. The code generator will populate the partial class with mocked methods for each Activity on the target activity class.
 
 ```csharp
 [GenerateNSubstituteMocks]
@@ -122,6 +63,138 @@ public async Task Test1()
 ```
 
 The test above isn't very useful as we're just asserting the NSubstitute behaviour. However, it becomes more useful when we want to test Workflow executions and verify that our activities are being called correctly.
+
+A more realistic test might look something like the below:
+
+```csharp
+// TestActivities.cs
+public class TestActivities
+{
+    [Activity]
+    public Task<string> RunAsync(string name)
+    {
+        return Task.FromResult("hello");
+    }
+}
+
+// TestWorkflow.cs
+[Workflow]
+public class TestWorkflow
+{
+    [WorkflowRun]
+    public async Task<string> RunAsync(string name)
+    {
+        return await Workflow.ExecuteActivityAsync((TestActivities x) => x.RunAsync(name),
+            new ActivityOptions { StartToCloseTimeout = TimeSpan.FromSeconds(10) });
+    }
+}
+
+// UnitTest1.cs
+public class UnitTest1
+{
+    [Fact]
+    public async Task TestWorkflow()
+    {
+        var taskQueueId = Guid.NewGuid().ToString();
+        var inputName = "Bob";
+
+        // setup our mock activity to return "Hello {inputName}"
+        //      Note - we can be more specific with the input parameter matching if needed
+        var mockActivities = new TestMocks();
+        mockActivities.MockRunAsync(Arg.Any<string>()).Returns($"Hello {inputName}");
+
+        // create test environment / worker
+        //    Note - need to ensure we pass the mockActivities to the worker
+        await using var env = await WorkflowEnvironment.StartTimeSkippingAsync();
+        using var worker = new TemporalWorker(env.Client,
+            new TemporalWorkerOptions(taskQueueId).AddWorkflow<TestWorkflow>()
+                .AddAllActivities(mockActivities));
+
+        await worker.ExecuteAsync(async () =>
+        {
+            // execute our workflow
+            var result = await env.Client.ExecuteWorkflowAsync(
+                (TestWorkflow wf) => wf.RunAsync(inputName),
+                new(id: $"wf-{Guid.NewGuid()}", taskQueue: taskQueueId));
+
+            // assert the result
+            Assert.Equal("Hello Bob", result);
+
+            // verify our mock activity was invoked exactly once with the correct argument
+            await mockActivities.MockRunAsync.Received(1)(inputName);
+        });
+    }
+}
+
+// Mark a mock class with the [GenerateNSubstituteMocks] attribute to ensure the source generator runs
+[GenerateNSubstituteMocks]
+public partial class TestMocks : ActivityMockBase<TestActivities>
+{
+}
+```
+
+### 2. Workflow extension methods
+
+> NOTE: Not very useful in its current format
+
+Creates a set of extension methods on the ITemporalClient for all classes marked with a [GenerateWorkflowExtension] attribute.
+
+> TODO clarify whether this avoids issues with expression tree compilation
+
+Usage:
+
+Add GenerateWorkflowExtension attribute to Workflow:
+
+```csharp
+[Workflow]
+[GenerateWorkflowExtension]
+public class MyWorkflow
+{
+    [WorkflowRun]
+    public Task RunAsync(string input)
+    {
+        return Task.CompletedTask;
+    }
+}
+```
+
+Invoke workflow from client:
+
+```csharp
+var client = new TemporalClient(...);
+var result = client.ExecuteMyWorkflowAsync("input", options);
+```
+
+### 3. Activity methods
+
+> NOTE: Not very useful in its current format
+
+Creates a set of static methods on an Activities class for all classes marked with a [GenerateActivityExtension] attribute.
+
+> TODO clarify whether this avoids issues with expression tree compilation
+
+Usage:
+
+Add GenerateActivityExtension attribute to Activity:
+
+```csharp
+[Activity]
+[GenerateActivityExtension]
+public async string MyActivity(string input)
+{
+    return "hello";
+}
+```
+
+Invoke from Workflow:
+
+```csharp
+[WorkflowRun]
+public async Task RunAsync()
+{
+    var result = await Activities.ExecuteMyActivity("input", options);
+}
+```
 
 ## Debugging the code generators
 
