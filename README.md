@@ -26,7 +26,7 @@ Creates a set of extension methods on the ITemporalClient for all classes marked
 
 Usage:
 
-Add GenerateWorkflowExtension attribute to Workflow:
+Add a `[GenerateWorkflowExtension]` attribute to the Workflow:
 
 ```csharp
 [Workflow]
@@ -41,7 +41,7 @@ public class MyWorkflow
 }
 ```
 
-Invoke workflow from client:
+Invoke the workflow using the temporal client (either using `Execute{WorkflowName}Async` or `Start{WorkflowName}Async`)
 
 ```csharp
 var client = new TemporalClient(...);
@@ -50,13 +50,13 @@ var result = client.ExecuteMyWorkflowAsync("input", options);
 
 ### 2. Activity methods
 
-Creates a set of static methods on an Activities class for all classes marked with a [GenerateActivityExtension] attribute.
+Creates a set of static methods on an Activities class for all classes marked with a `[GenerateActivityExtension]` attribute.
 
 > TODO clarify whether this avoids issues with expression tree compilation
 
 Usage:
 
-Add GenerateActivityExtension attribute to Activity:
+Add the `[GenerateActivityExtension]` attribute to an Activity:
 
 ```csharp
 [Activity]
@@ -67,7 +67,7 @@ public async string MyActivity(string input)
 }
 ```
 
-Invoke from Workflow:
+Invoke the activity from a Workflow using `Activities.Execute{ActivityName}`
 
 ```csharp
 [WorkflowRun]
@@ -79,11 +79,11 @@ public async Task RunAsync()
 
 ### 3. Activity mocks
 
-Creates test doubles for activity classes. All methods marked with an [Activity] attribute will be mocked using NSubstitue meaning the mock behaviour can be configured from test execution. This is helpful when testing workflows with lots of activity executions or where we want to verify our activity delegates have been invoked.
+Creates test doubles for activity classes. All methods on the target class marked with an [Activity] attribute will be mocked using NSubstitue meaning the mock behaviour can be configured from test execution. This is helpful when testing workflows with lots of activity executions or where we want to verify our activity delegates have been invoked.
 
 Usage:
 
-Create a partial class inheriting from `ActivityMockBase` and mark it with the [GenerateNSubstituteMocks] attribute. This will generate a partial class with a mock for each activity method.
+Create a partial class inheriting from `ActivityMockBase` and mark it with the `[GenerateNSubstituteMocks]` attribute. This will generate a partial class with a mock for each activity method.
 
 ```csharp
 [GenerateNSubstituteMocks]
@@ -101,7 +101,7 @@ public class TestActivities
 }
 ```
 
-From test instantiate the class and configure the mock behaviour using the NSubstitute syntax.
+From a test instantiate the mock class and configure the activity behaviour using NSubstitute.
 
 e.g. We can configure the activity RunAsync to return the string "goodbye" when invoked:
 
@@ -121,7 +121,7 @@ public async Task Test1()
 }
 ```
 
-The test above isn't very useful as we're just asserting the NSubstitute behaviour, but we can use this to test workflows and verify that our activity delegates have been invoked.
+The test above isn't very useful as we're just asserting the NSubstitute behaviour. However, it becomes more useful when we want to test Workflow executions and verify that our activities are being called correctly.
 
 ## Debugging the code generators
 
