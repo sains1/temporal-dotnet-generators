@@ -14,7 +14,30 @@ This repository contains a few experimental source generators for the temporal-d
 
 ## Getting Started
 
-> TODO
+The source generators are published to the github nuget registry
+
+1. Add nuget config for registry
+
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <packageSources>
+        <clear />
+        <add key="Nuget" value="https://api.nuget.org/v3/index.json" />
+        <add key="sains1" value="https://nuget.pkg.github.com/sains1/index.json" />
+    </packageSources>
+</configuration>
+
+> Note: Instructions for authenticating can be found at https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry
+
+2. Install the packages
+
+```
+dotnet add package ActivityMockGenerator
+dotnet add package ActivityGenerator
+dotnet add package WorkflowGenerator
+```
+
+3. See instructions for each generator use-case below
 
 ## Use Cases:
 
