@@ -18,6 +18,7 @@ The source generators are published to the github nuget registry
 
 1. Add nuget config for registry
 
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <packageSources>
@@ -26,6 +27,7 @@ The source generators are published to the github nuget registry
         <add key="sains1" value="https://nuget.pkg.github.com/sains1/index.json" />
     </packageSources>
 </configuration>
+```
 
 > Note: Instructions for authenticating can be found at https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-nuget-registry
 
