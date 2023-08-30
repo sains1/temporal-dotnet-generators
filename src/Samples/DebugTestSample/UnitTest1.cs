@@ -15,6 +15,7 @@ public class UnitTest1
 
         var result = await activities.RunAsync();
 
+        Assert.Equal("goodbye", result);
     }
 }
 
