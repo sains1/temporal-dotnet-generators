@@ -5,7 +5,7 @@
         <Title>Temporal .NET ActivityMockGenerator</Title>
         <Company>sains1</Company>
         <PackageVersion>1.0.1</PackageVersion>
-        <PackageId>ActivityMockGenerator</PackageId>
+        <PackageId>sains1.Temporalio.ActivityMockGenerator</PackageId>
         <Product>sains1</Product>
         <Description>This source generator produces mock activity classes to help test workflows</Description>
         <PackageProjectUrl>https://github.com/sains1/temporal-dotnet-generators/</PackageProjectUrl>

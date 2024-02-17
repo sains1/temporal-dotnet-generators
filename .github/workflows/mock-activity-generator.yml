@@ -9,7 +9,7 @@ jobs:
     permissions:
       packages: write
       contents: read
-      
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -17,12 +17,12 @@ jobs:
       - name: Build
         run: |
           dotnet build ./src/ActivityMockGenerator/ActivityMockGenerator.csproj --configuration Release
-        
+
       - name: Publish
-        run: dotnet nuget push ./src/ActivityMockGenerator/bin/Release/*.nupkg  --source "GH" --api-key ${{secrets.GITHUB_TOKEN}}
+        run: dotnet nuget push ./src/ActivityMockGenerator/bin/Release/*.nupkg  --source "Nuget" --api-key ${{secrets.NUGET_APIKEY }}
       # - name: Package
       #   run: |
       #     dotnet pack ./src/ActivityMockGenerator/ActivityMockGenerator.csproj --configuration Release --output ${{github.workspace}}/NuGet /p:Version=$client_version
-      
+
       # - name: Publish
-      #   run: dotnet nuget push ${{github.workspace}}/NuGet/*.nupkg  --source "GH" --api-key ${{secrets.GITHUB_TOKEN}}
+      #   run: dotnet nuget push ${{github.workspace}}/NuGet/*.nupkg  --source "GH" --api-key ${{secrets.NUGET_APIKEY}}
